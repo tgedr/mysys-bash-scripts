@@ -1,9 +1,10 @@
+#!/usr/bin/env bash
+
 # http://bash.cumulonim.biz/NullGlob.html
 shopt -s nullglob
 
 # ---------- CONSTANTS ----------
-#export USER_BIN_DIR=~/.local/bin
-export USER_BIN_DIR=/Users/jtviegas/Documents/github/mysys-bash-scripts/tmp
+export USER_BIN_DIR=~/.local/bin
 export INCLUDES_DIR=~
 # -------------------------------
 

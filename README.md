@@ -21,6 +21,6 @@ else
 fi
 ``` 
 ## usage
-* first time - download and run `mysys_update.sh` 
-* after - just run `./mysys_update.sh` to update the set of scripts in your bin folder
-* run `./mysys_help.sh` for info on the existent scripts
+* first time - download and run `./mysys_update.sh` 
+* after - just run `mysys_update.sh` to update the set of scripts in your bin folder
+* run `mysys_help.sh` for info on the existent scripts

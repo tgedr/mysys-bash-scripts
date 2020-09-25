@@ -1,0 +1,25 @@
+name: release
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: get timestamp
+      id: timestamp
+      run: echo "::set-output name=ts::$(date +'%y%m%d%H%M%S')"
+    - name: package
+      run: tar cjpvf mysys.tar.bz2 *.sh
+    - name: create release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: mysys.tar.bz2
+        tag: mysys-${{ steps.timestamp.outputs.ts }}
+        asset_name: mysys.tar.bz2
+        overwrite: true
+

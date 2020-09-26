@@ -64,17 +64,27 @@ fi
 
 # <=== COMMON SECTION END  <===
 
-if [ ! -d "$USER_BIN_DIR" ]; then
-  err "can't find local bin folder: $USER_BIN_DIR"
-  exit 1
-fi
+# parameter check
+usage()
+{
+        cat <<EOM
+        usage:
+        $(basename $0) "$encrypted_msg"
+            decrypts and decodes (base64) a message using keybase
+            requirements: keybase
+EOM
+        exit 1
+}
 
-_pwd=$(pwd)
+[ -z "$1" ] && { usage; }
 
-cd "$USER_BIN_DIR"
-curl -s https://api.github.com/repos/tgedr/mysys-bash-scripts/releases/latest \
-| grep "browser_download_url.*mysys\.tar\.bz2" \
-| cut -d '"' -f 4 | wget -qi -
-tar xjpvf mysys.tar.bz2
-rm mysys.tar.bz2
-cd "$_pwd"
+verify_prereqs keybase
+if [ ! "$?" -eq "0" ] ; then err "please install keybase" && exit 1; fi
+
+#echo "$msg" | base64 | keybase pgp encrypt | keybase pgp decrypt | base64 --decode
+__msg="$@"
+
+__out=$(echo "$__msg" | keybase pgp decrypt | base64 --decode)
+if [ ! "$?" -eq "0" ] ; then err "no luck" && exit 1; fi
+
+echo "$__out"

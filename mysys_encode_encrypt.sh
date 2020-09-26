@@ -40,41 +40,47 @@ err(){
 }
 
 verify_prereqs(){
-  info "[verify_prereqs] ..."
+  # info "[verify_prereqs] ..."
   for arg in "$@"
   do
-      debug "[verify_prereqs] ... checking $arg"
+      #debug "[verify_prereqs] ... checking $arg"
       which "$arg" 1>/dev/null
       if [ ! "$?" -eq "0" ] ; then err "[verify_prereqs] please install $arg" && return 1; fi
   done
-  info "[verify_prereqs] ...done."
+  #info "[verify_prereqs] ...done."
 }
 
-if [ ! -f "$INCLUDES_DIR/.variables.inc" ]; then
-  debug "we DON'T have a '$INCLUDES_DIR/.variables.inc' file"
-else
+if [ -f "$INCLUDES_DIR/.variables.inc" ]; then
   . "$INCLUDES_DIR/.variables.inc"
 fi
 
-if [ ! -f "$INCLUDES_DIR/.secrets.inc" ]; then
-  debug "we DON'T have a '$INCLUDES_DIR/.secrets.inc' file"
-else
+if [ -f "$INCLUDES_DIR/.secrets.inc" ]; then
   . "$INCLUDES_DIR/.secrets.inc"
 fi
 
 # <=== COMMON SECTION END  <===
 
-if [ ! -d "$USER_BIN_DIR" ]; then
-  err "can't find local bin folder: $USER_BIN_DIR"
-  exit 1
-fi
 
-_pwd=$(pwd)
+# parameter check
+usage()
+{
+        cat <<EOM
+        usage:
+        $(basename $0) { msg }
+            encodes (base64) and encrypts a message using keybase
+            requirements: keybase
+EOM
+        exit 1
+}
 
-cd "$USER_BIN_DIR"
-curl -s https://api.github.com/repos/tgedr/mysys-bash-scripts/releases/latest \
-| grep "browser_download_url.*mysys\.tar\.bz2" \
-| cut -d '"' -f 4 | wget -qi -
-tar xjpvf mysys.tar.bz2
-rm mysys.tar.bz2
-cd "$_pwd"
+[ -z "$1" ] && { usage; }
+
+verify_prereqs keybase
+if [ ! "$?" -eq "0" ] ; then err "please install keybase" && exit 1; fi
+
+#echo "$msg" | base64 | keybase pgp encrypt | keybase pgp decrypt | base64 --decode
+
+__out=$(echo "$@" | base64 | keybase pgp encrypt)
+if [ ! "$?" -eq "0" ] ; then err "no luck" && exit 1; fi
+
+echo "$__out"

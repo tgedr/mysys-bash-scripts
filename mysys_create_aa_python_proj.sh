@@ -89,8 +89,11 @@ mkdir "$proj_name"
 cd "$proj_name"
 
 python3 -m venv env && source ./env/bin/activate
-python3 -m pip install -U pip wheel setuptools
-python3 -m pip install black==19.10b0
-python3 -m pip install isort
+python -m pip install -U pip wheel setuptools
+python -m pip install black==19.10b0
+python -m pip install isort
+python -m pip install Pylint
+python -m pip install mypy
+mkdir tests
 
 cd "$_pwd"

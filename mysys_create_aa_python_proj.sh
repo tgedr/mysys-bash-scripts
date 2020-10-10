@@ -94,6 +94,12 @@ python -m pip install black==19.10b0
 python -m pip install isort
 python -m pip install Pylint
 python -m pip install mypy
+python -m pip install six
+python -m pip uninstall pyspark
+python -m pip install databricks-connect==7.1.0
+python -m pip install jupyter
+python -m pip install requests
+
 mkdir tests
 
 cd "$_pwd"

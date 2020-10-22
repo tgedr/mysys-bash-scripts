@@ -88,7 +88,7 @@ _pwd=$(pwd)
 mkdir "$proj_name"
 cd "$proj_name"
 
-python3 -m venv env && source ./env/bin/activate
+python3 -m venv .env && source ./.env/bin/activate
 python -m pip install -U pip wheel setuptools
 python -m pip install black==19.10b0
 python -m pip install isort

@@ -63,47 +63,28 @@ else
 fi
 
 # <=== COMMON SECTION END  <===
-
-# parameter check
-usage()
-{
-        cat <<EOM
-        usage:
-        $(basename $0) <proj_name>
-            creates a python 3 proj with a virtual env
-EOM
-        exit 1
-}
-
-[ -z "$1" ] && { usage; }
-
-proj_name="$1"
-
-if [ -d "$proj_name" ]; then err "project already created in folder" && exit 1; fi
-
-python3 -V | grep "3.7.9"
-if [ ! "$?" -eq "0" ] ; then err "please install python 3.7.9 to use black with azure devops" && exit 1; fi
+runFolder="personalization"
 
 _pwd=$(pwd)
-mkdir "$proj_name"
-cd "$proj_name"
+folder=$(basename "$_pwd")
+# "mysys-bash-scripts"
 
+if [ "$folder" != "$runFolder" ]; then
+  err "not in $runFolder folder"
+  exit 1
+fi
+
+rm -rf .env
 python3 -m venv .env && source ./.env/bin/activate
-python -m pip install -U pip wheel setuptools
-python -m pip install black==19.10b0
-python -m pip install isort
-python -m pip install Pylint
-python -m pip install mypy
-python -m pip install six
-
-python -m pip install jupyter
-python -m pip install requests
+python -m pip -r requirements.txt
+python -m pip uninstall pyspark
+python -m pip install databricks-connect==7.1.0
 python -m pip install yappi
 python -m pip install vmprof==0.4.9
 
-python -m pip uninstall pyspark
-python -m pip install databricks-connect==7.1.1
+_pwd=$(pwd)
+cd ""
 
-mkdir tests
+
 
 cd "$_pwd"

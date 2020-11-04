@@ -70,7 +70,7 @@ usage()
         cat <<EOM
         usage:
         $(basename $0) <proj_name>
-            creates a python 3 proj with a virtual env
+            creates a python 3 proj
 EOM
         exit 1
 }
@@ -81,33 +81,23 @@ proj_name="$1"
 
 if [ -d "$proj_name" ]; then err "project already created in folder" && exit 1; fi
 
-python3 -V | grep "3.7.9"
+python3 -V
 if [ ! "$?" -eq "0" ] ; then err "please install python 3.7.9 to use black with azure devops" && exit 1; fi
 
 _pwd=$(pwd)
 mkdir "$proj_name"
 cd "$proj_name"
-
+git init
+echo ".env" >> .gitignore
+mkdir "$proj_name"
+mkdir tests
+echo "\"\"\"package: $proj_name\"\"\"" > "$proj_name/__init__.py"
+echo "__version__ = '0.0.0'" >> "$proj_name/__init__.py"
 python3 -m venv .env && source ./.env/bin/activate
 
 python -m pip install -U pip wheel setuptools
-python -m pip install black==19.10b0
-python -m pip install isort
-python -m pip install Pylint
-python -m pip install mypy
-python -m pip install six
+python -m pip install flit
+flit init
 
-python -m pip install jupyter
-python -m pip install requests
-python -m pip install yappi
-python -m pip install vmprof==0.4.9
-python -m pip install twine
-python -m pip install bumpversion
-python -m pip install check-wheel-contents
-
-python -m pip uninstall pyspark
-python -m pip install databricks-connect==7.1.1
-
-mkdir tests
 
 cd "$_pwd"

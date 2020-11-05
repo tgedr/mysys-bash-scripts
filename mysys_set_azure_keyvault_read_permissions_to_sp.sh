@@ -69,35 +69,17 @@ usage()
 {
         cat <<EOM
         usage:
-        $(basename $0) <proj_name>
-            creates a python 3 proj
+        $(basename $0) <keyvault_name> <service_principal_appid>
+            assigns keyvault read permissions to a service principal
 EOM
         exit 1
 }
 
 [ -z "$1" ] && { usage; }
+[ -z "$2" ] && { usage; }
 
-proj_name="$1"
+keyvault_name="$1"
+service_principal_appid="$2"
 
-if [ -d "$proj_name" ]; then err "project already created in folder" && exit 1; fi
+az keyvault set-policy --name "$keyvault_name" --spn "$service_principal_appid" --key-permissions get list
 
-python3 -V
-if [ ! "$?" -eq "0" ] ; then err "please install python 3.7.9 to use black with azure devops" && exit 1; fi
-
-_pwd=$(pwd)
-mkdir "$proj_name"
-cd "$proj_name"
-git init
-echo ".env" >> .gitignore
-mkdir "$proj_name"
-mkdir tests
-echo "\"\"\"package: $proj_name\"\"\"" > "$proj_name/__init__.py"
-echo "__version__ = '0.0.0'" >> "$proj_name/__init__.py"
-python3 -m venv .env && source ./.env/bin/activate
-
-python -m pip install -U pip wheel setuptools pytest
-python -m pip install flit
-flit init
-
-
-cd "$_pwd"

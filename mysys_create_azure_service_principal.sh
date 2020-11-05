@@ -69,35 +69,14 @@ usage()
 {
         cat <<EOM
         usage:
-        $(basename $0) <proj_name>
-            creates a python 3 proj
+        $(basename $0) <service_principal_name>
+            creates an azure service principal with no assignment
 EOM
         exit 1
 }
 
 [ -z "$1" ] && { usage; }
 
-proj_name="$1"
+sp_name="$1"
 
-if [ -d "$proj_name" ]; then err "project already created in folder" && exit 1; fi
-
-python3 -V
-if [ ! "$?" -eq "0" ] ; then err "please install python 3.7.9 to use black with azure devops" && exit 1; fi
-
-_pwd=$(pwd)
-mkdir "$proj_name"
-cd "$proj_name"
-git init
-echo ".env" >> .gitignore
-mkdir "$proj_name"
-mkdir tests
-echo "\"\"\"package: $proj_name\"\"\"" > "$proj_name/__init__.py"
-echo "__version__ = '0.0.0'" >> "$proj_name/__init__.py"
-python3 -m venv .env && source ./.env/bin/activate
-
-python -m pip install -U pip wheel setuptools pytest
-python -m pip install flit
-flit init
-
-
-cd "$_pwd"
+az ad sp create-for-rbac -n "$sp_name" --skip-assignment

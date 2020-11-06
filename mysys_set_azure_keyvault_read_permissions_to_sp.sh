@@ -81,5 +81,5 @@ EOM
 keyvault_name="$1"
 service_principal_appid="$2"
 
-az keyvault set-policy --name "$keyvault_name" --spn "$service_principal_appid" --key-permissions get list
+az keyvault set-policy --name "$keyvault_name" --spn "$service_principal_appid" --secret-permissions get list list-versions show
 

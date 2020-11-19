@@ -79,13 +79,17 @@ EOM
 
 proj_name="$1"
 
-if [ -d "$proj_name" ]; then err "project already created in folder" && exit 1; fi
+
 
 python3 -V | grep "3.7.9"
 if [ ! "$?" -eq "0" ] ; then err "please install python 3.7.9 to use black with azure devops" && exit 1; fi
 
 _pwd=$(pwd)
-mkdir "$proj_name"
+
+if [ ! -d "$proj_name" ]; then
+  mkdir "$proj_name"
+fi
+
 cd "$proj_name"
 
 python3 -m venv .env && source ./.env/bin/activate

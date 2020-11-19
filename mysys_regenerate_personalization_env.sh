@@ -81,6 +81,7 @@ python -m pip uninstall pyspark
 python -m pip install databricks-connect==7.1.0
 python -m pip install yappi
 python -m pip install vmprof==0.4.9
+python -m pip install databricks-cli
 
 _pwd=$(pwd)
 cd ""

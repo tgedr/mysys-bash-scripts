@@ -78,6 +78,7 @@ EOM
 [ -z "$1" ] && { usage; }
 
 proj_name="$1"
+shift
 
 python3 -V
 if [ ! "$?" -eq "0" ] ; then err "please install python 3.7.9 to use black with azure devops" && exit 1; fi
@@ -89,16 +90,27 @@ if [ ! -d "$proj_name" ]; then
 fi
 
 cd "$proj_name"
-git init
+
+for arg in "$@"
+do
+  debug "... handling option $arg"
+  if [ "$arg" == "git" ]; then
+    debug "... doing git init"
+    git init
+  fi
+done
+
+
 echo ".env" >> .gitignore
+echo ".idea" >> .gitignore
+
 mkdir "$proj_name"
 mkdir tests
 echo "\"\"\"package: $proj_name\"\"\"" > "$proj_name/__init__.py"
 echo "__version__ = '0.0.0'" >> "$proj_name/__init__.py"
 python3 -m venv .env && source ./.env/bin/activate
 
-python -m pip install -U pip wheel setuptools pytest
-python -m pip install flit
+python -m pip install -U pip wheel setuptools pytest flit
 flit init
 
 

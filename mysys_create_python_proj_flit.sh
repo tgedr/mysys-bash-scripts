@@ -113,5 +113,12 @@ python3 -m venv .env && source ./.env/bin/activate
 python -m pip install -U pip wheel setuptools pytest flit
 flit init
 
+echo "dist-name = \"\"" >> pyproject.toml
+echo "requires-python = \">=3.7\"" >> pyproject.toml
+echo "requires = []" >> pyproject.toml
+echo "classifiers = [ \"Programming Language :: Python :: 3.7\", ]" >> pyproject.toml
+echo "[tool.flit.metadata.requires-extra]" >> pyproject.toml
+echo "test = [ \"pytest >=6.1.2\", ]" >> pyproject.toml
+
 
 cd "$_pwd"

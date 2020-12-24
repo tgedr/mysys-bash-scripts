@@ -76,7 +76,7 @@ fi
 
 rm -rf .env
 python3 -m venv .env && source ./.env/bin/activate
-python -m pip -r requirements.txt
+python -m pip install -r requirements.txt
 python -m pip uninstall pyspark
 python -m pip install databricks-connect==7.1.0
 python -m pip install yappi

@@ -38,6 +38,7 @@ cd "$PROJECT_NAME"
 mkdir src
 mkdir test
 
+if [ ! -f ".gitignore" ]; then
 cat > .gitignore <<____HERE
 __pycache__/
 *.py[cod]
@@ -118,7 +119,9 @@ cython_debug/
 .secrets
 test-results.xml
 ____HERE
+fi
 
+if [ ! -f "LICENSE" ]; then
 cat > LICENSE <<____HERE
 This is free and unencumbered software released into the public domain.
 
@@ -145,6 +148,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <https://unlicense.org>
 ____HERE
+fi
 
 cat > pyproject.toml <<____HERE
 [build-system]

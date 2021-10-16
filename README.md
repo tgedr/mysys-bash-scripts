@@ -22,7 +22,8 @@ fi
 ``` 
 ## usage
 * first time - download `mysys_update.sh` from the repository
-* in `mysys_update.sh` verify your `USER_BIN_DIR` and `INCLUDES_DIR` is set correctly
+* in `mysys_update.sh` verify your `USER_BIN_DIR` and `INCLUDES_DIR` are set correctly
 * run `./mysys_update.sh` - it will retrieve the latest set of `mysys_*` scripts
+* restart your bash script terminal
 * run `mysys_help.sh` for info on the existent scripts
 

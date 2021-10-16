@@ -21,6 +21,8 @@ else
 fi
 ``` 
 ## usage
-* first time - download and run `./mysys_update.sh` 
-* after - just run `mysys_update.sh` to update the set of scripts in your bin folder
+* first time - download `mysys_update.sh` from the repository
+* in `mysys_update.sh` verify your `USER_BIN_DIR` and `INCLUDES_DIR` is set correctly
+* run `./mysys_update.sh` - it will retrieve the latest set of `mysys_*` scripts
 * run `mysys_help.sh` for info on the existent scripts
+

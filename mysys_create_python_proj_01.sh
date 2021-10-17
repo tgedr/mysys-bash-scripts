@@ -195,7 +195,7 @@ where=src
 ____HERE
 
 /usr/local/bin/python3.7 -m venv .env && source ./.env/bin/activate
-python -m pip install --upgrade pip setuptools wheel pytest build twine artifacts-keyring keyring
+python -m pip install --upgrade pip setuptools wheel pytest build twine artifacts-keyring keyring bump2version
 python -m pip install astroid==2.5.2 pycodestyle==2.7.0 pyflakes==2.3.0 isort black autoflake pytest-cov
 
 cd "$_pwd"

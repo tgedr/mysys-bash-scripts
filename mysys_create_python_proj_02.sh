@@ -202,8 +202,7 @@ where=src
 ____HERE
 
 cat > MANIFEST.in <<____HERE
-README.md
-*.json
+include test/resources/*.json
 ____HERE
 
 /usr/local/bin/python3.7 -m venv .env && source ./.env/bin/activate

@@ -205,7 +205,7 @@ README.md
 *.json
 ____HERE
 
-python3 -m venv .env && source ./.env/bin/activate
+/usr/local/bin/python3.7 -m venv .env && source ./.env/bin/activate
 python -m pip install --upgrade pip setuptools wheel pytest build twine artifacts-keyring keyring bumpversion
 python -m pip install astroid==2.5.2 pycodestyle==2.7.0 pyflakes==2.3.0 isort black autoflake pytest-cov
 

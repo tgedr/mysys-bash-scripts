@@ -186,13 +186,18 @@ classifiers =
     Programming Language :: Python :: 3.7
 
 [options]
+include_package_data = True
 package_dir =
     =src
-packages=find:
+packages=find_namespace:
 install_requires =
     pytest
 [options.packages.find]
 where=src
+____HERE
+
+cat > MANIFEST.in <<____HERE
+#include test/resources/*.json
 ____HERE
 
 /usr/local/bin/python3.7 -m venv .env && source ./.env/bin/activate

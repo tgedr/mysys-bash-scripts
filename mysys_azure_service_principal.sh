@@ -7,7 +7,7 @@ if [ -z "$this_folder" ]; then
   fi
 fi
 
-. "$this_folder/common.inc"
+. "$this_folder/mysys_common.inc"
 
 on_no_assign()
 {

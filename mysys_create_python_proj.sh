@@ -46,9 +46,11 @@ cd "$PROJECT_NAME"
 
 wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/helper.sh
 chmod +x helper.sh
+wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/release.yml -P .github/workflows
 
 mkdir src
 mkdir test
+
 
 if [ ! -f ".gitignore" ]; then
 cat > .gitignore <<____HERE

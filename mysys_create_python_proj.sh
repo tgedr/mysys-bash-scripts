@@ -45,6 +45,7 @@ fi
 cd "$PROJECT_NAME"
 
 wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/helper.sh
+wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/.bumpversion.cfg
 chmod +x helper.sh
 wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/release.yml -P .github/workflows
 

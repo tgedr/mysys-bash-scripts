@@ -188,6 +188,7 @@ ____HERE
 
 cat > requirements.txt <<____HERE
 pytest
+piprot
 ____HERE
 
 cat > setup.cfg <<____HERE
@@ -222,7 +223,7 @@ cat > MANIFEST.in <<____HERE
 ____HERE
 
 $python_bin -m venv .env && source ./.env/bin/activate
-python -m pip install --upgrade pip setuptools wheel pytest build twine artifacts-keyring keyring bump2version pipreqs
+python -m pip install --upgrade pip setuptools wheel pytest build twine artifacts-keyring keyring bump2version pipreqs piprot
 python -m pip install astroid==2.5.2 pycodestyle==2.7.0 pyflakes==2.3.0 isort black autoflake pytest-cov
 
 cd "$_pwd"

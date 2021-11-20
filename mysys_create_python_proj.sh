@@ -50,7 +50,7 @@ chmod +x helper.sh
 wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/release.yml -P .github/workflows
 
 mkdir src
-mkdir test
+wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/conftest.py -P test
 touch .variables
 touch .secrets
 

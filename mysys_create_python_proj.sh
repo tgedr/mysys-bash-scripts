@@ -44,6 +44,9 @@ fi
 
 cd "$PROJECT_NAME"
 
+wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/helper.sh
+chmod +x helper.sh
+
 mkdir src
 mkdir test
 

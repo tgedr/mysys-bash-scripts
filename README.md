@@ -21,7 +21,9 @@ else
 fi
 ``` 
 ## usage
-* first time - download `mysys_update.sh` from the repository
+* first time - download `mysys_update.sh` from the repository:
+  * `wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/mysys_update.sh`
+  * `chmod +x mysys_update.sh`
 * in `mysys_update.sh` verify your `USER_BIN_DIR` and `INCLUDES_DIR` are set correctly
 * run `./mysys_update.sh` - it will retrieve the latest set of `mysys_*` scripts
 * restart your bash script terminal

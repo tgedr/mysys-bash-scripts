@@ -51,6 +51,8 @@ wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/rel
 
 mkdir src
 mkdir test
+touch .variables
+touch .secrets
 
 
 if [ ! -f ".gitignore" ]; then
@@ -134,6 +136,10 @@ cython_debug/
 .secrets
 test-results.xml
 ____HERE
+else
+  echo ".idea/" >> .gitignore
+  echo ".secrets" >> .gitignore
+  echo "test-results.xml" >> .gitignore
 fi
 
 if [ ! -f "LICENSE" ]; then

@@ -23,7 +23,7 @@ set_regular_spark()
 {
   info "[set_regular_spark|in]"
   python -m pip uninstall databricks-connect databricks-cli
-  python -m pip install pyspark==3.1.0
+  python -m pip install pyspark==3.1.2
   info "[set_regular_spark|out]"
 }
 

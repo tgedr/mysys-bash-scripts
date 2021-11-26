@@ -23,11 +23,11 @@ rm -rf .env
 /usr/local/bin/python3.7 -m venv .env && source ./.env/bin/activate
 python -m pip install -r requirements.txt
 python -m pip uninstall pyspark
-python -m pip install databricks-connect==7.1.0
+python -m pip install databricks-connect==7.3.27
 python -m pip install yappi
 python -m pip install vmprof==0.4.9
 python -m pip install databricks-cli
-python -m pip install pytest pytest-mock
+#python -m pip install pytest pytest-mock
 
 _pwd=$(pwd)
 cd ""

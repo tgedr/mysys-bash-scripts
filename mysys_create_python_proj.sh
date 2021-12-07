@@ -25,7 +25,6 @@ if [ -z "$2" ]; then
   python_bin="$PYTHON_BIN"
 else
   python_bin="$2"
-  shift
 fi
 
 [ -z "$1" ] && { usage; }

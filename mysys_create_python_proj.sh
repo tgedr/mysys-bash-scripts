@@ -31,7 +31,6 @@ fi
 [ -z "$1" ] && { usage; }
 
 PROJECT_NAME="$1"
-shift
 
 $python_bin -V
 if [ ! "$?" -eq "0" ] ; then err "??? python binary not available ???" && exit 1; fi

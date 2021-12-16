@@ -8,6 +8,8 @@ fi
 shopt -s nullglob
 
 # ---------- CONSTANTS ----------
+export VARIABLES_FILE=${COMMON_VARIABLES_FILE:-".variables"}
+export SECRETS_FILE=${COMMON_SECRETS_FILE:-".secrets"}
 export USER_BIN_DIR=~/.local/bin
 export INCLUDES_DIR=~
 # -------------------------------
@@ -43,16 +45,16 @@ verify_prereqs(){
   info "[verify_prereqs] ...done."
 }
 
-if [ ! -f "$INCLUDES_DIR/.variables.inc" ]; then
-  debug "we DON'T have a '$INCLUDES_DIR/.variables.inc' file"
+if [ ! -f "$INCLUDES_DIR/$VARIABLES_FILE" ]; then
+  debug "we DON'T have a '$INCLUDES_DIR/$VARIABLES_FILE' file"
 else
-  . "$INCLUDES_DIR/.variables.inc"
+  . "$INCLUDES_DIR/$VARIABLES_FILE"
 fi
 
-if [ ! -f "$INCLUDES_DIR/.secrets.inc" ]; then
-  debug "we DON'T have a '$INCLUDES_DIR/.secrets.inc' file"
+if [ ! -f "$INCLUDES_DIR/$SECRETS_FILE" ]; then
+  debug "we DON'T have a '$INCLUDES_DIR/$SECRETS_FILE' file"
 else
-  . "$INCLUDES_DIR/.secrets.inc"
+  . "$INCLUDES_DIR/$SECRETS_FILE"
 fi
 
 # <=== COMMON SECTION END  <===

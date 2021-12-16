@@ -67,6 +67,7 @@ brew install azure-functions-core-tools@4
 # create function project
 func init --force --worker-runtime python
 
+echo "\n" >> requirements.txt
 echo "requests" >> requirements.txt
 echo "pytest" >> requirements.txt
 pip install -r requirements.txt

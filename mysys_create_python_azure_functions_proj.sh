@@ -67,6 +67,8 @@ brew install azure-functions-core-tools@4
 # create function project
 func init --force --worker-runtime python
 
+echo "requests" >> requirements.txt
+echo "pytest" >> requirements.txt
 pip install -r requirements.txt
 
 wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/function_api_helper.sh -O helper.sh

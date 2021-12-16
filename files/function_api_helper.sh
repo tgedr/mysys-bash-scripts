@@ -130,7 +130,7 @@ install_prereqs() {
   brew tap azure/functions
   brew install azure-functions-core-tools@4
 
-  pip install azure-functions requests pytest
+  pip install -r requirements.txt
 
   if [ ! -f "$this_folder/$VARIABLES_FILE" ]; then
     info "creating $VARIABLES_FILE variables file"

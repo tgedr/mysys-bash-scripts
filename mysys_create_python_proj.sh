@@ -223,7 +223,7 @@ cat > MANIFEST.in <<____HERE
 #include test/resources/*.json
 ____HERE
 
-$python_bin -m venv .env && source ./.env/bin/activate
+$python_bin -m venv .venv && source ./.venv/bin/activate
 python -m pip install --upgrade pip
 pip install setuptools wheel build twine artifacts-keyring keyring bump2version pipreqs astroid pycodestyle pyflakes isort black autoflake pytest pytest-cov
 

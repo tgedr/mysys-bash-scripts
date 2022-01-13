@@ -3,6 +3,13 @@
 # http://bash.cumulonim.biz/NullGlob.html
 shopt -s nullglob
 
+
+# ---------- CONSTANTS ----------
+export FILE_VARIABLES=${FILE_VARIABLES:-".variables"}
+export FILE_SECRETS=${FILE_SECRETS:-".secrets"}
+
+# -------------------------------
+
 # -------------------------------
 # --- COMMON FUNCTION SECTION ---
 
@@ -26,6 +33,61 @@ err(){
     echo " [ERR]   `date` !!! $__msg "
 }
 
+add_entry_to_variables()
+{
+  info "[add_entry_to_variables|in] ($1, $2)"
+  [ -z "$1" ] && err "no parameters provided" && return 1
+
+  variables_file="${this_folder}/${FILE_VARIABLES}"
+
+  if [ -f "$variables_file" ]; then
+    sed -i '' "/export $1/d" "$variables_file"
+
+    if [ ! -z "$2" ]; then
+      echo "export $1=$2" | tee -a "$variables_file" > /dev/null
+    fi
+  fi
+  info "[add_entry_to_variables|out]"
+}
+
+add_entry_to_secrets()
+{
+  info "[add_entry_to_secrets|in] ($1, ${2:0:7})"
+  [ -z "$1" ] && err "no parameters provided" && return 1
+
+  secrets_file="${this_folder}/${FILE_SECRETS}"
+
+  if [ -f "$secrets_file" ]; then
+    sed -i '' "/export $1/d" "$secrets_file"
+
+    if [ ! -z "$2" ]; then
+      echo "export $1=$2" | tee -a "$secrets_file" > /dev/null
+    fi
+  fi
+  info "[add_entry_to_secrets|out]"
+}
+
+verify_prereqs(){
+  info "[verify_prereqs] ..."
+  for arg in "$@"
+  do
+      debug "[verify_prereqs] ... checking $arg"
+      which "$arg" 1>/dev/null
+      if [ ! "$?" -eq "0" ] ; then err "[verify_prereqs] please install $arg" && return 1; fi
+  done
+  info "[verify_prereqs] ...done."
+}
+
+verify_env(){
+  info "[verify_env] ..."
+  for arg in "$@"
+  do
+      debug "[verify_env] ... checking $arg"
+      if [ -z "$arg" ]; then err "[verify_env] please define env var: $arg" && return 1; fi
+  done
+  info "[verify_env] ...done."
+}
+
 # -------------------------------
 # --- MAIN SECTION ---
 
@@ -37,14 +99,16 @@ if [ -z "$this_folder" ]; then
 fi
 parent_folder=$(dirname "$this_folder")
 
-if [ -f "${this_folder}/.variables" ]; then
-    debug "we have a '.variables' file"
-    . "${this_folder}/.variables"
+if [ ! -f "$this_folder/$FILE_VARIABLES" ]; then
+  warn "we DON'T have a $FILE_VARIABLES variables file"
+else
+  . "$this_folder/$FILE_VARIABLES"
 fi
 
-if [ -f "${this_folder}/.secrets" ]; then
-    debug "we have a '.secrets' file"
-    . "${this_folder}/.secrets"
+if [ ! -f "$this_folder/$FILE_SECRETS" ]; then
+  warn "we DON'T have a $FILE_SECRETS secrets file"
+else
+  . "$this_folder/$FILE_SECRETS"
 fi
 
 usage()
@@ -74,8 +138,8 @@ EOM
 reqs()
 {
     info "[reqs|in]"
-    python -m pip install --upgrade pip setuptools wheel build twine artifacts-keyring keyring bump2version pipreqs && \
-    python -m pip install astroid==2.5.2 pycodestyle==2.7.0 pyflakes==2.3.0 isort black autoflake pytest pytest-cov
+    python -m pip install --upgrade pip
+    pip install setuptools wheel build twine artifacts-keyring keyring bump2version pipreqs astroid pycodestyle pyflakes isort black autoflake pytest pytest-cov
     return_value="$?"
     info "[reqs|out] => ${return_value}"
     [[ ! "$return_value" -eq "0" ]] && exit 1

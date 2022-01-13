@@ -90,6 +90,7 @@ echo "test-results.xml" >> .funcignore
 echo ".secrets" >> .gitignore
 echo ".vscode/" >> .gitignore
 echo "test-results.xml" >> .gitignore
+echo ".idea/" >> .gitignore
 
 # create dummy function
 func new --name hello --template "HTTP trigger" --authlevel "anonymous"

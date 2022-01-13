@@ -14,7 +14,7 @@ usage()
         cat <<EOM
         usage:
         $(basename $0) <PROJECT_NAME> [ALTERNATE_PYTHON_BIN]
-            creates a python 3.7 proj
+            creates a python 3.* proj
 EOM
         exit 1
 }
@@ -38,6 +38,8 @@ _pwd=$(pwd)
 
 if [ ! -d "$PROJECT_NAME" ]; then
   mkdir "$PROJECT_NAME"
+else
+  info "project folder already there"
 fi
 
 cd "$PROJECT_NAME"
@@ -167,6 +169,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <https://unlicense.org>
 ____HERE
+else
+  info "license already there"
 fi
 
 cat > pyproject.toml <<____HERE
@@ -220,7 +224,7 @@ cat > MANIFEST.in <<____HERE
 ____HERE
 
 $python_bin -m venv .env && source ./.env/bin/activate
-python -m pip install --upgrade pip setuptools wheel pytest build twine artifacts-keyring keyring bump2version pipreqs
-python -m pip install astroid==2.5.2 pycodestyle==2.7.0 pyflakes==2.3.0 isort black autoflake pytest-cov
+python -m pip install --upgrade pip
+pip install setuptools wheel build twine artifacts-keyring keyring bump2version pipreqs astroid pycodestyle pyflakes isort black autoflake pytest pytest-cov
 
 cd "$_pwd"

@@ -45,7 +45,6 @@ fi
 cd "$PROJECT_NAME"
 
 wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/helper.sh
-wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/.bumpversion.cfg
 chmod +x helper.sh
 wget https://raw.githubusercontent.com/tgedr/mysys-bash-scripts/master/files/release.yml -P .github/workflows
 
@@ -190,6 +189,7 @@ ____HERE
 
 cat > requirements.txt <<____HERE
 pytest
+pytest-cov
 ____HERE
 
 cat > setup.cfg <<____HERE
@@ -206,7 +206,6 @@ license = Unlicense
 license_files = LICENSE
 classifiers =
     Programming Language :: Python :: 3
-    Programming Language :: Python :: 3.7
 
 [options]
 include_package_data = True
@@ -225,6 +224,6 @@ ____HERE
 
 $python_bin -m venv .venv && source ./.venv/bin/activate
 python -m pip install --upgrade pip
-pip install setuptools wheel build twine artifacts-keyring keyring bump2version pipreqs astroid pycodestyle pyflakes isort black autoflake pytest pytest-cov
+pip install --upgrade setuptools wheel build twine artifacts-keyring keyring pipreqs astroid pycodestyle pyflakes isort black autoflake pytest pytest-cov
 
 cd "$_pwd"

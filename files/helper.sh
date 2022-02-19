@@ -169,18 +169,18 @@ build()
     info "[build|in]"
     rm -f dist/*
     pyproject-build && twine check dist/*
-    return_value="$?"
+    return_value=$?
     info "[build|out] => ${return_value}"
-    [[ ! "$return_value" -eq "0" ]] && exit 1
+    return $return_value
 }
 
 publish()
 {
-    info "[publish|in] ($1)"
-    bump2version --list "$1" && git push --follow-tags
-    return_value="$?"
+    info "[publish|in]"
+    python -m twine upload dist/*.whl
+    return_value=$?
     info "[publish|out] => ${return_value}"
-    [[ ! "$return_value" -eq "0" ]] && exit 1
+    return $return_value
 }
 
 test()
@@ -210,19 +210,7 @@ case "$1" in
         build
         ;;
     publish)
-        case "$2" in
-            patch)
-                publish "patch"
-                ;;
-            minor)
-                publish "minor"
-                ;;
-            major)
-                publish "major"
-                ;;
-            *)
-                usage
-        esac
+        publish
         ;;
     test)
         test
